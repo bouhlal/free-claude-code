@@ -68,6 +68,8 @@ def _make_mock_settings(**overrides):
     mock.groq_proxy = ""
     mock.cerebras_api_key = ""
     mock.cerebras_proxy = ""
+    mock.github_copilot_token = ""
+    mock.github_copilot_proxy = ""
     mock.nim = NimSettings()
     mock.http_read_timeout = 300.0
     mock.http_write_timeout = 10.0
@@ -313,6 +315,22 @@ async def test_get_provider_groq_missing_api_key():
         assert exc_info.value.status_code == 503
         assert "GROQ_API_KEY" in exc_info.value.detail
         assert "console.groq.com" in exc_info.value.detail
+
+
+@pytest.mark.asyncio
+async def test_get_provider_github_copilot_missing_token():
+    """GitHub Copilot with empty token raises HTTPException 503."""
+    with patch("api.dependencies.get_settings") as mock_settings:
+        mock_settings.return_value = _make_mock_settings(
+            provider_type="github_copilot",
+            github_copilot_token="",
+        )
+
+        with pytest.raises(HTTPException) as exc_info:
+            get_provider()
+
+        assert exc_info.value.status_code == 503
+        assert "GITHUB_COPILOT_TOKEN" in exc_info.value.detail
 
 
 @pytest.mark.asyncio
