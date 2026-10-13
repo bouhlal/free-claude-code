@@ -144,6 +144,11 @@ class Settings(BaseSettings):
     # ==================== Cerebras Inference (OpenAI-compatible) ====================
     cerebras_api_key: str = Field(default="", validation_alias="CEREBRAS_API_KEY")
 
+    # ==================== GitHub Copilot (OpenAI-compatible) ====================
+    github_copilot_token: str = Field(
+        default="", validation_alias="GITHUB_COPILOT_TOKEN"
+    )
+
     # ==================== Messaging Platform Selection ====================
     # Valid: "telegram" | "discord" | "none"
     messaging_platform: str = Field(
@@ -203,6 +208,9 @@ class Settings(BaseSettings):
     fireworks_proxy: str = Field(default="", validation_alias="FIREWORKS_PROXY")
     gemini_proxy: str = Field(default="", validation_alias="GEMINI_PROXY")
     groq_proxy: str = Field(default="", validation_alias="GROQ_PROXY")
+    github_copilot_proxy: str = Field(
+        default="", validation_alias="GITHUB_COPILOT_PROXY"
+    )
     cerebras_proxy: str = Field(default="", validation_alias="CEREBRAS_PROXY")
 
     # ==================== Provider Rate Limiting ====================

@@ -67,6 +67,7 @@ class OpenAIChatTransport(BaseProvider):
         provider_name: str,
         base_url: str,
         api_key: str,
+        default_headers: dict[str, str] | None = None,
     ):
         super().__init__(config)
         self._provider_name = provider_name
@@ -100,6 +101,7 @@ class OpenAIChatTransport(BaseProvider):
                 write=config.http_write_timeout,
             ),
             http_client=http_client,
+            default_headers=default_headers,
         )
 
     async def cleanup(self) -> None:

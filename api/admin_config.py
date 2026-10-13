@@ -252,6 +252,19 @@ FIELDS: tuple[ConfigFieldSpec, ...] = (
         ),
     ),
     ConfigFieldSpec(
+        "GITHUB_COPILOT_TOKEN",
+        "GitHub Copilot Token",
+        "providers",
+        "secret",
+        settings_attr="github_copilot_token",
+        secret=True,
+        description=(
+            "GitHub OAuth token for your Copilot subscription. Generate it with "
+            "`uv run python scripts/github_copilot_login.py` (GitHub device flow); "
+            "it is exchanged for short-lived Copilot API tokens automatically."
+        ),
+    ),
+    ConfigFieldSpec(
         "LM_STUDIO_BASE_URL",
         "LM Studio Base URL",
         "providers",
@@ -404,6 +417,15 @@ FIELDS: tuple[ConfigFieldSpec, ...] = (
         "providers",
         "secret",
         settings_attr="cerebras_proxy",
+        secret=True,
+        advanced=True,
+    ),
+    ConfigFieldSpec(
+        "GITHUB_COPILOT_PROXY",
+        "GitHub Copilot Proxy",
+        "providers",
+        "secret",
+        settings_attr="github_copilot_proxy",
         secret=True,
         advanced=True,
     ),
@@ -894,6 +916,12 @@ FIELDS: tuple[ConfigFieldSpec, ...] = (
     ConfigFieldSpec(
         "FCC_SMOKE_MODEL_CEREBRAS",
         "Smoke Cerebras Model",
+        "smoke",
+        advanced=True,
+    ),
+    ConfigFieldSpec(
+        "FCC_SMOKE_MODEL_GITHUB_COPILOT",
+        "Smoke GitHub Copilot Model",
         "smoke",
         advanced=True,
     ),

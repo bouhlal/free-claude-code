@@ -36,6 +36,8 @@ ZAI_DEFAULT_BASE = "https://api.z.ai/api/anthropic/v1"
 GEMINI_DEFAULT_BASE = "https://generativelanguage.googleapis.com/v1beta/openai/"
 GROQ_DEFAULT_BASE = "https://api.groq.com/openai/v1"
 CEREBRAS_DEFAULT_BASE = "https://api.cerebras.ai/v1"
+# GitHub Copilot OpenAI-compatible chat API (needs a short-lived token, see provider).
+GITHUB_COPILOT_DEFAULT_BASE = "https://api.githubcopilot.com"
 
 
 @dataclass(frozen=True, slots=True)
@@ -212,6 +214,16 @@ PROVIDER_CATALOG: dict[str, ProviderDescriptor] = {
             "native_anthropic",
             "rate_limit",
         ),
+    ),
+    "github_copilot": ProviderDescriptor(
+        provider_id="github_copilot",
+        transport_type="openai_chat",
+        credential_env="GITHUB_COPILOT_TOKEN",
+        credential_url="https://github.com/features/copilot (run scripts/github_copilot_login.py)",
+        credential_attr="github_copilot_token",
+        default_base_url=GITHUB_COPILOT_DEFAULT_BASE,
+        proxy_attr="github_copilot_proxy",
+        capabilities=("chat", "streaming", "tools", "rate_limit"),
     ),
     "lmstudio": ProviderDescriptor(
         provider_id="lmstudio",
